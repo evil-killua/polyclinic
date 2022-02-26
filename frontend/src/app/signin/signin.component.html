@@ -1,0 +1,38 @@
+<div class="form-container">
+
+	<h2 class="form-container-label">Sign in</h2>
+
+	<form class="sign-in-form" name='signinForm' (submit)="doSignin()">
+
+		<div class="form-error-message" *ngIf='error'>{{error}}</div>
+
+		<input
+		class="sign-in-form-text-field"
+		type='text'
+		name='username'
+		placeholder="Username"
+		[(ngModel)]="username"
+		/>
+
+		<input
+		class="sign-in-form-text-field"
+		type='password'
+		name='password'
+		placeholder="Password"
+		[(ngModel)]="password"
+		/>
+
+		<input
+		class="sign-in-form-submit-btn"
+		name="submit"
+		type="submit"
+		value="Signin"
+		/>
+
+	</form>
+
+	<span>
+		Don't have account? <a href="/signup" routerLink="/signup">Sign up</a>
+	</span>
+
+</div>

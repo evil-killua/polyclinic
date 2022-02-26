@@ -1,0 +1,31 @@
+<h2 class="form-title">User list</h2>
+
+<span class="form-status-message" style="color : red" *ngIf='error'>{{error}}</span>
+<span class="form-status-message" style="color : green" *ngIf='success'>{{success}}</span>
+
+<table class="table table-striped form-table" border="1">
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Birthday</th>
+            <th>Medical card number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td class="count"></td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.birthday}}</td>
+            <td>{{user.medicalCardNumber}}</td>
+            <td>
+                <button (click)="updateUser(user.id)" class="btn btn-info">update</button>
+                <button (click)="deleteUser(user.id)" class="btn btn-danger" style="margin-left: 10px">delete</button>
+                <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">view</button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

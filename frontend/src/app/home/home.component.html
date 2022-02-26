@@ -1,0 +1,46 @@
+<div class="content-container" *ngIf="isSignedin">
+
+	<div class="greetings-container">
+		<p class="greeting">Welcome back, {{ signedinUser }}!</p>  
+
+		<div *ngFor="let greet of greeting">
+			{{greet}}
+		</div>
+	</div>
+
+	<div class="main-menu">
+
+		<p class="main-menu-point" (click)="speciality()">
+			<a class="main-menu-point-label fit-container">Book ticket</a>
+		</p>
+		<p class="main-menu-point" [hidden]="!this.isAdmin" (click)="showUsers()">
+			<a class="main-menu-point-label fit-container">Show users</a>
+		</p>
+		<p class="main-menu-point" (click)="tickets()">
+			<a class="main-menu-point-label fit-container">Booked tickets</a>
+		</p>
+		<p class="main-menu-point" [hidden]="!this.isAdmin" (click)="addTicket()">
+			<a class="main-menu-point-label fit-container">Create ticket</a>
+		</p>
+		<p class="main-menu-point" [hidden]="!this.isAdmin" (click)="deleteTicket()">
+			<a class="main-menu-point-label fit-container">Delete ticket</a>
+		</p>
+		<p class="main-menu-point" [hidden]="!this.isDoctor" (click)="bookedTicket()">
+			<a class="main-menu-point-label fit-container">doctor booked tickets</a>
+		</p>
+		<!--<p class="main-menu-point" (click)="view()">
+			<a class="main-menu-point-label fit-container">View account details</a>
+		</p>-->
+		<p class="main-menu-point" (click)="userDetails()">
+			<a class="main-menu-point-label fit-container">View account details</a>
+		</p>
+<!--		<button (click)="userDetails()" class="btn btn-info" style="margin-left: 10px">view</button>-->
+		<p class="main-menu-point" (click)="doSignout()">
+			<a class="main-menu-point-label fit-container">Signout</a>
+		</p>
+
+		<!--<p>role: {{role}}</p>-->
+	</div>
+
+
+</div>

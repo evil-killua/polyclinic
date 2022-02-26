@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="1" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_table" />
+            </not>
+        </preConditions>
+        <createTable tableName="user_table">
+            <column name="user_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_name" type="varchar(255)" />
+            <column name="user_pass" type="varchar(255)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="birthday" type="date"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="medical_card_number" type="bigint"/>
+            <column name="phone" type="varchar(10)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role_table" />
+            </not>
+        </preConditions>
+        <createTable tableName="role_table">
+            <column name="role_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role_name" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_role" />
+            </not>
+        </preConditions>
+        <createTable tableName="user_role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_id_fk" references="user_table(user_id)"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints foreignKeyName="role_id_fk" references="role_table(role_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="doctor_working_hour" />
+            </not>
+        </preConditions>
+        <createTable tableName="doctor_working_hour">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="beginning_of_work" type="time"/>
+            <column name="day_of_week" type="integer"/>
+            <column name="end_of_work" type="time"/>
+            <column name="doctor_id" type="bigint">
+                <constraints foreignKeyName="doctor_id_fk" references="user_table(user_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="speciality" />
+            </not>
+        </preConditions>
+        <createTable tableName="speciality">
+            <column name="speciality_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="speciality_name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="doctor_speciality" />
+            </not>
+        </preConditions>
+        <createTable tableName="doctor_speciality">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="speciality_id" type="bigint">
+                <constraints foreignKeyName="speciality_id_fk" references="speciality(speciality_id)"/>
+            </column>
+            <column name="doctor_id" type="bigint">
+                <constraints foreignKeyName="doctor_id_fk" references="user_table(user_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="Alex">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ticket" />
+            </not>
+        </preConditions>
+        <createTable tableName="ticket">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="time" type="time"/>
+            <column name="doctor_id" type="bigint">
+                <constraints foreignKeyName="doctor_id_fk" references="user_table(user_id)"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_id_fk" references="user_table(user_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="Alex">
+
+        <createSequence sequenceName="hibernate_sequence" startValue="12" incrementBy="1"/>
+
+        <!--<sql>
+            create sequence hibernate_sequence;
+            alter sequence hibernate_sequence owner to postgres;
+        </sql>-->
+    </changeSet>
+
+    <changeSet id="9" author="Alex">
+
+        <sql>
+            insert into role_table(role_name) values('ROLE_ADMIN');
+            insert into role_table(role_name) values('ROLE_USER');
+            insert into role_table(role_name) values('ROLE_DOCTOR');
+        </sql>
+    </changeSet>
+
+    <changeSet id="10" author="Alex">
+
+        <sql>
+            insert into user_table(user_name,user_pass,first_name,last_name,birthday,address,medical_card_number,email,phone)
+            values('admin','$2a$12$wxVkr/Q9In/YnJjBVedat.SfuynHNsiWQAoxzzyHNgchQ1p1Nl7Oq','Timur','Braun','1995-04-03','address',1,'arabchik.alex@gmail.com','123123123');
+
+            insert into user_table(user_name,user_pass,first_name,last_name,birthday,address,medical_card_number,email,phone)
+            values('doc1','$2a$12$9VeAfN4YZvgkZl5cdXAUWursOFnT48VGtbdwiSid12emux3r.Z8i6','Madiha','Monroe','1990-07-21','address',2,'arabchik.alex@gmail.com','345345345');
+
+            insert into user_table(user_name,user_pass,first_name,last_name,birthday,address,medical_card_number,email,phone)
+            values('user1','$2a$12$fcvuZfvMxVlsn61GRgGose5/Fi/zLLkqkm29PfV6qHDBvBxe7xwuG','Yusuf','Reyna','1997-01-23','address',3,'arabchik.alex@gmail.com','234234234');
+        </sql>
+    </changeSet>
+
+    <changeSet id="11" author="Alex">
+
+        <sql>
+            insert into user_role(user_id, role_id) values(1,1);
+            insert into user_role(user_id, role_id) values(2,3);
+            insert into user_role(user_id, role_id) values(2,2);
+            insert into user_role(user_id, role_id) values(3,2);
+        </sql>
+    </changeSet>
+
+    <changeSet id="12" author="Alex">
+
+        <sql>
+            insert into speciality(speciality_name) values('Инфекционист');
+            insert into speciality(speciality_name) values('Онколог');
+            insert into speciality(speciality_name) values('Терапевт');
+            insert into speciality(speciality_name) values('Психиатр');
+            insert into speciality(speciality_name) values('Невролог');
+            insert into speciality(speciality_name) values('Отоларинголог');
+            insert into speciality(speciality_name) values('Дерматовенеролог');
+            insert into speciality(speciality_name) values('Травматолог-ортопед');
+            insert into speciality(speciality_name) values('Акушер-гинеколог');
+            insert into speciality(speciality_name) values('Неонатолог');
+            insert into speciality(speciality_name) values('Хирург');
+        </sql>
+    </changeSet>
+
+    <changeSet id="13" author="Alex">
+
+        <sql>
+            insert into doctor_speciality(speciality_id,doctor_id) values(1,2);
+        </sql>
+    </changeSet>
+
+    
+</databaseChangeLog>

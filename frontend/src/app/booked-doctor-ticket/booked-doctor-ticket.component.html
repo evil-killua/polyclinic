@@ -1,0 +1,27 @@
+
+
+
+<input
+class="tickets-form-selector"
+type="date"
+[(ngModel)]="selectDate" min="limitDate | date:'dd-MM-yyyy'"
+(change)="onChangeDate(selectDate)"
+>
+
+<table
+class="table table-striped form-table" border="1"
+>
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of tickets">
+            <td class="count"></td>
+            <td>{{ticket.time}}</td>
+            <td>{{ticket.userName}}</td>
+        </tr>
+    </tbody>
+</table>

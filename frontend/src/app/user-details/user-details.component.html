@@ -1,0 +1,35 @@
+<h3 class="form-title">User details</h3>
+
+<div class="data-container form-table">
+
+    <div class="fit-container data-row">
+        <label><b>First name:  </b></label> {{user.firstName}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Last name:  </b></label> {{user.lastName}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Birthday:  </b></label> {{user.birthday}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Address:  </b></label> {{user.address}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Medical card number:  </b></label> {{user.medicalCardNumber}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Email:  </b></label> {{user.email}}
+    </div>
+
+    <div class="fit-container data-row">
+        <label><b>Phone:  </b></label> {{user.phone}}
+    </div>
+
+    <button (click)="updateUser(user.id)" class="btn btn-info">update</button>
+
+</div>

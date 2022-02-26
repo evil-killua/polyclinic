@@ -1,0 +1,24 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.main-nav-bar-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+.main-nav-bar {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: blueviolet;
+}
+.router-container {
+    max-height: calc(100% - 50px);
+}

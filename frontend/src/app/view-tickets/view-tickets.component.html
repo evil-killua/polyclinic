@@ -1,0 +1,73 @@
+<!--<p>actual ticket</p>
+<table class="table table-striped" border="1" >
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>doc name</th>
+            <th>date</th>
+            <th>time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of actual">
+            <td class="count"></td>
+            <td>{{ticket.doctorName}}</td>
+            <td>{{ticket.date}}</td>
+            <td>{{ticket.time}}</td>
+            <td>
+                <button (click)="refuseTicket(ticket)" class="btn btn-info">refuse</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<p>overdue ticket</p>
+<table class="table table-striped" border="1" >
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>doc name</th>
+            <th>date</th>
+            <th>time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of overdue">
+            <td class="count"></td>
+            <td>{{ticket.doctorName}}</td>
+            <td>{{ticket.date}}</td>
+            <td>{{ticket.time}}</td>
+
+        </tr>
+    </tbody>
+</table>-->
+
+
+<h2 class="form-title">Ticket list</h2>
+
+<span class="form-status-message" style="color : red" *ngIf='error'>{{error}}</span>
+<span class="form-status-message" style="color : green" *ngIf='success'>{{success}}</span>
+
+<table class="table table-striped form-table" border="1">
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>doc name</th>
+            <th>date</th>
+            <th>time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of tickets">
+            <td class="count"></td>
+            <td>{{ticket.doctorName}}</td>
+            <td>{{ticket.date}}</td>
+            <td>{{ticket.time}}</td>
+            <button (click)="refuseTicket(ticket)" class="btn btn-info">refuse</button>
+<!--            <td *ngIf="check(ticket)"> 
+                <button (click)="refuseTicket(ticket)" class="btn btn-info">refuse</button>
+            </td>-->
+        </tr>
+    </tbody>
+</table>

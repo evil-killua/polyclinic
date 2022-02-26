@@ -1,0 +1,22 @@
+:host {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    overflow: auto;
+}
+.user-edit-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.user-edit-form {
+    min-width: 30%;
+    max-width: 95%;
+    margin-bottom: 15px;
+    display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}

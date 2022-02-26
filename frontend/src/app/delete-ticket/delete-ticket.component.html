@@ -1,0 +1,65 @@
+<h2 class="form-title">Booked tickets</h2>
+
+<select
+id="first"
+class="tickets-form-selector"
+[(ngModel)]="selectSpec"
+(change)="onChangeSpeciality(selectSpec)"
+>
+    <option value="Выберите специализацию">Выберите специализацию</option>
+    <option *ngFor="let sp of speciality">
+        {{sp}}
+    </option>
+</select>
+
+<select
+id="second"
+class="tickets-form-selector"
+[style.visibility]="(selectSpec === 'Выберите специализацию') ? 'hidden' : 'visible' "
+[(ngModel)]="selectDoc"
+(change)="onChangeDoctor(selectDoc)"
+> 
+    <option value="Выберите врача">Выберите врача</option>
+    <option *ngFor="let do of doctors">
+        {{do}}
+    </option>
+</select>
+
+<input
+class="tickets-form-selector"
+type="date"
+[style.visibility]="(selectDoc === 'Выберите врача') ? 'hidden' : 'visible' "
+[(ngModel)]="selectDate" min="limitDate | date:'dd-MM-yyyy'"
+(change)="onChangeDate(selectDate)"
+>
+
+<p [style.visibility]="(selectDoc === 'Выберите врача') ? 'hidden' : 'visible' ">
+    list of ticket on {{selectDate | date:'dd-MM-yyyy'}} to {{selectDoc}}
+</p>
+
+<!--<div class="status-message" style="color : green" *ngIf='!des; else elseBlock'>{{mes}}</div>
+<ng-template class="status-message" style="color : red" #elseBlock>{{mes}}: {{des}}</ng-template>-->
+
+<span class="form-status-message" style="color : red" *ngIf='error'>{{error}}</span>
+<span class="form-status-message" style="color : green" *ngIf='success'>{{success}}</span>
+
+<table
+class="table table-striped form-table" border="1"
+[style.visibility]="(selectDoc === 'Выберите врача') ? 'hidden' : 'visible' "
+>
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of timeList">
+            <td class="count"></td>
+            <td>{{ticket.time}}</td>
+            <td>
+                <button (click)="onChangeTicket(ticket)" class="btn btn-info">delete ticket</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

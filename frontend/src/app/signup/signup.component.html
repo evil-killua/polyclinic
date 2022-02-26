@@ -1,0 +1,97 @@
+<div class="form-container">
+
+	<h2 class="form-container-label">Sign up</h2>
+
+	<form class="sign-up-form" name='signupForm' (submit)="doSignup()">
+
+		<span class="form-status-message" style="color : red" *ngIf='error'>{{error}}</span>
+		<span class="form-status-message" style="color : green" *ngIf='success'>{{success}}</span>
+
+		<input
+		class="sign-up-form-text-field"
+		type='text'
+		name='username'
+		placeholder="Username"
+		[(ngModel)]="username"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type='password'
+		name='password'
+		placeholder="Password"
+		[(ngModel)]="password"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="text"
+		name="firstName"
+		placeholder="First name"
+		[(ngModel)]="firstName"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="text"
+		name="lastName"
+		placeholder="Last name"
+		[(ngModel)]="lastName"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="date"
+		name="birthday"
+		(change)="onChangeDate(birthday)"
+		placeholder="Birthday"
+		[(ngModel)]="birthday"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="text"
+		name="address"
+		maxlength="100"
+		placeholder="Address"
+		[(ngModel)]="address"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="number"
+		name="medicalCardNumber"
+		maxlength="1000000"
+		placeholder="Medical card number"
+		[(ngModel)]="medicalCardNumber"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="email"
+		name="email"
+		placeholder="Email"
+		[(ngModel)]="email"
+		/>
+
+		<input
+		class="sign-up-form-text-field"
+		type="text"
+		maxlength="9"
+		name="phone"
+		placeholder="Phone"
+		[(ngModel)]="phone"
+		/>
+
+		<input
+		class="sign-up-form-submit-btn"
+		name="submit"
+		type="submit"
+		value="Signup"
+		/>
+<!--		(click)="doSignup()"-->
+		<span>Have account? <a href="/signin" routerLink="/signin">Signin</a></span>
+
+	</form>
+
+</div>
