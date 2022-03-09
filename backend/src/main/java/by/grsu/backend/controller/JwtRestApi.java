@@ -3,6 +3,7 @@ package by.grsu.backend.controller;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import by.grsu.backend.aop.LogInfo;
 import by.grsu.backend.dto.Request;
 import by.grsu.backend.dto.UserRequest;
 import by.grsu.backend.dto.Response;
@@ -11,8 +12,11 @@ import by.grsu.backend.exception.InvalidUserCredentialsException;
 import by.grsu.backend.repository.UserRepository;
 import by.grsu.backend.service.UserAuthService;
 import by.grsu.backend.util.JwtUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,28 +32,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @Slf4j
+@Api("authentication controller")
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
 public class JwtRestApi {
 
 //	private Logger logger = LoggerFactory.getLogger(JwtRestApi.class);
 
-    private final JwtUtil jwtUtil;
-
-    private final UserAuthService userAuthService;
-
-    private final AuthenticationManager authenticationManager;
-
-    private final UserRepository userRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
-    public JwtRestApi(JwtUtil jwtUtil, UserAuthService userAuthService, AuthenticationManager authenticationManager, UserRepository userRepository) {
-        this.jwtUtil = jwtUtil;
-        this.userAuthService = userAuthService;
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-    }
+    @Qualifier("userAuthService")
+    private UserAuthService userAuthService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @LogInfo
+    @ApiOperation("query for sign in")
     @PostMapping("/signin")
     public ResponseEntity<Response> generateJwtToken( @RequestBody Request request) {
 //		logger.info("start signin");
@@ -78,12 +82,14 @@ public class JwtRestApi {
         response.setToken(token);
         response.setRoles(roles.stream().collect(Collectors.toList()));
         response.setId(user1.getId());
-
+        
 //		logger.info("finish signin");
         log.info("finish signin");
         return new ResponseEntity<Response>(response, HttpStatus.OK);
     }
 
+    @LogInfo
+    @ApiOperation("query for create account")
     @PostMapping("/signup")
     public ResponseEntity<String> signup( @RequestBody UserRequest request) {
 //		logger.info("start signup");

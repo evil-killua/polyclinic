@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("specialityService")
 @Slf4j
 public class SpecialityServiceImpl implements SpecialityService {
 

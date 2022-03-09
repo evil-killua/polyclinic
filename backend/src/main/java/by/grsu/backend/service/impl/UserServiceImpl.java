@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
+@Service("userService")
 @Slf4j
 public class UserServiceImpl implements UserService {
 

@@ -1,6 +1,5 @@
 package by.grsu.backend.service.impl;
 
-import by.grsu.backend.dto.Answer;
 import by.grsu.backend.dto.BookTicket;
 import by.grsu.backend.entity.Ticket;
 import by.grsu.backend.entity.User;
@@ -20,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
-@Service
+@Service("ticketService")
 @Slf4j
 public class TicketServiceImpl implements TicketService {
 

@@ -1,13 +1,17 @@
 package by.grsu.backend.controller;
 
+import by.grsu.backend.aop.LogInfo;
 import by.grsu.backend.dto.UserRequest;
 import by.grsu.backend.entity.User;
 import by.grsu.backend.service.UserRoleService;
 import by.grsu.backend.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +22,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Slf4j
+@Api("controller for work with users")
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
 @RequestMapping("/users")
@@ -26,11 +31,15 @@ public class UserAdminController {
 //    private Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 
     @Autowired
+    @Qualifier("userService")
     private UserService userService;
 
     @Autowired
+    @Qualifier("userRoleService")
     private UserRoleService userRoleService;
 
+    @LogInfo
+    @ApiOperation("query for get all users")
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping()
     public List<UserRequest> getAllUsers(){
@@ -49,8 +58,8 @@ public class UserAdminController {
         return requests;
     }
 
-
-
+    @LogInfo
+    @ApiOperation("query for get user by id")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/{id}")
     public ResponseEntity<UserRequest> getUserById(@PathVariable Long id){
@@ -66,6 +75,8 @@ public class UserAdminController {
         return ResponseEntity.ok(request);
     }
 
+    @LogInfo
+    @ApiOperation("query for get user by username")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/view/{userName}")
     public ResponseEntity<UserRequest> getUserByUserName(@PathVariable String userName){
@@ -87,6 +98,8 @@ public class UserAdminController {
         return ResponseEntity.ok(request);
     }
 
+    @LogInfo
+    @ApiOperation("query for delete user")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> /*ResponseEntity<Map<String,Boolean>>*/ deleteUser(@PathVariable Long id){
@@ -99,6 +112,8 @@ public class UserAdminController {
         return new ResponseEntity<>("successfully delete user", HttpStatus.OK);
     }
 
+    @LogInfo
+    @ApiOperation("query for update user info")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/{id}")
     public ResponseEntity<UserRequest> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {

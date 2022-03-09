@@ -3,7 +3,6 @@ package by.grsu.backend.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import by.grsu.backend.dto.UserRequest;
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
+@Service("userAuthService")
 @Slf4j
 public class UserAuthService implements UserDetailsService {
 

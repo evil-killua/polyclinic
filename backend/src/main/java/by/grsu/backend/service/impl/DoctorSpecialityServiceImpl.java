@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("doctorSpecialityService")
 @Slf4j
 public class DoctorSpecialityServiceImpl implements DoctorSpecialityService {
 

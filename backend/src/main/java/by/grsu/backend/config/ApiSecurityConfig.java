@@ -36,7 +36,15 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/signin", "/signup");
+        web.ignoring().antMatchers("/signin",
+                "/signup",
+                "/actuator/**",
+                "/v2/api-docs/**",
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/swagger-resources/**",
+                "/swagger-ui/**");
+
     }
 
     @Autowired
