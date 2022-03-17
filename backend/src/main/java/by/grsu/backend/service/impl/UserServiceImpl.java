@@ -6,6 +6,7 @@ import by.grsu.backend.entity.UserRole;
 import by.grsu.backend.exception.ResourceNotFoundException;
 import by.grsu.backend.repository.RoleRepository;
 import by.grsu.backend.repository.UserRepository;
+import by.grsu.backend.repository.UserRoleRepository;
 import by.grsu.backend.service.UserRoleService;
 import by.grsu.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +29,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+//    @Autowired
+//    private UserRoleService userRoleService;
+
     @Autowired
-    private UserRoleService userRoleService;
+    private UserRoleRepository userRoleRepository;
 
     @Override
     public List<User> findAll() {
@@ -52,12 +56,17 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("user not exit with id: " + id));
 
-        List<UserRole> userRoles = userRoleService.getUserRoleByUser(user);
+//        List<UserRole> userRoles = userRoleService.getUserRoleByUser(user);
+        List<UserRole> userRoles = userRoleRepository.findByUser(user);
+
         userRoles.forEach(r -> {
-            userRoleService.removeUserRole(r);
+//            userRoleService.removeUserRole(r);
+            userRoleRepository.delete(r);
         });
 
-        userRepository.delete(user);
+
+//        userRepository.delete(user);
+        userRepository.deleteById(id);
 
         /*Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);*/
@@ -68,7 +77,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
-
     }
 
     @Override
@@ -90,7 +98,8 @@ public class UserServiceImpl implements UserService {
         user.setPhone(request.getPhone());
         user.setMedicalCardNumber(request.getMedicalCardNumber());
 
-        saveUser(user);
+//        saveUser(user);
+        userRepository.save(user);
 
         return request;
     }

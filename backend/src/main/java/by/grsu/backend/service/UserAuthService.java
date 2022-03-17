@@ -91,8 +91,6 @@ public class UserAuthService implements UserDetailsService {
 
         userRepository.save(user);
         roles.forEach(r->userRoleRepository.save(r));
-
-
     }
 
 }

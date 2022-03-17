@@ -50,7 +50,7 @@ export class BookTicketComponent implements OnInit {
             time: ticketTime.time.toString(),doctorName: this.selectDoc};
         console.log("ticket: " + ticket);
 
-        this.bookService.bookTicket(ticket).subscribe((data:string)=>{
+        this.bookService.bookTicket(ticket).subscribe(data=>{
           console.log("data after booking ticket: ");
           
 //          this.param = data;
@@ -58,7 +58,7 @@ export class BookTicketComponent implements OnInit {
 //          this.mes = this.param.message;
 //          this.des = this.param.description;
           this.time = ticketTime.time;
-          this.success = data;
+          this.success = "successfully booked";
           this.getTicket(this.selectDate,this.selectDoc);          
         }, (err: any) => {
           //console.log(err);

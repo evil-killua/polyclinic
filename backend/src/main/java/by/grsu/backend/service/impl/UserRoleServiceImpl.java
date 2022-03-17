@@ -31,10 +31,10 @@ public class UserRoleServiceImpl implements UserRoleService {
         return userRoleRepository.findByUser(user);
     }
 
-    @Override
-    public UserRole findByUserAndAndRole(User user, Role role) {
-        return userRoleRepository.findByUserAndAndRole(user,role);
-    }
+//    @Override
+//    public UserRole findByUserAndRole(User user, Role role) {
+//        return userRoleRepository.findByUserAndRole(user,role);
+//    }
 
     @Override
     public void removeUserRole(UserRole userRole) {
@@ -45,5 +45,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void addNewUserRole(UserRole userRole) {
         userRoleRepository.save(userRole);
     }
+
+
 }
 

@@ -106,7 +106,7 @@
                 <constraints foreignKeyName="speciality_id_fk" references="speciality(speciality_id)"/>
             </column>
             <column name="doctor_id" type="bigint">
-                <constraints foreignKeyName="doctor_id_fk" references="user_table(user_id)"/>
+                <constraints foreignKeyName="doctor2_id_fk" references="user_table(user_id)"/>
             </column>
         </createTable>
     </changeSet>
@@ -124,10 +124,10 @@
             <column name="date" type="date"/>
             <column name="time" type="time"/>
             <column name="doctor_id" type="bigint">
-                <constraints foreignKeyName="doctor_id_fk" references="user_table(user_id)"/>
+                <constraints foreignKeyName="doctor3_id_fk" references="user_table(user_id)"/>
             </column>
             <column name="user_id" type="bigint">
-                <constraints foreignKeyName="user_id_fk" references="user_table(user_id)"/>
+                <constraints foreignKeyName="user2_id_fk" references="user_table(user_id)"/>
             </column>
         </createTable>
     </changeSet>

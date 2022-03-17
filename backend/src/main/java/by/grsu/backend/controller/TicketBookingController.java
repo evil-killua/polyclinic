@@ -77,7 +77,7 @@ public class TicketBookingController {
                 s = s.concat(d.getLastName());
                 String concat = d.getFirstName();
                 concat = concat.concat(s);
-                System.out.println(concat);
+
                 names.add(concat);
             });
         }
@@ -130,13 +130,13 @@ public class TicketBookingController {
     @ApiOperation("query for book ticket")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/ticket")
-    public ResponseEntity<String> bookingTicket( @RequestBody BookTicket bookTicket){
+    public /*ResponseEntity<String>*/ BookTicket bookingTicket( @RequestBody BookTicket bookTicket){
         log.info("start booking ticket request");
         log.info("book: " + bookTicket);
 
-        ticketService.bookTicket(bookTicket);
+        return ticketService.bookTicket(bookTicket);
 
-        return new ResponseEntity<>("successfully booked",HttpStatus.OK);
+//        return new ResponseEntity<>("successfully booked",HttpStatus.OK);
     }
 
     @LogInfo
@@ -153,29 +153,29 @@ public class TicketBookingController {
     @ApiOperation("query for refuse ticket")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/refuse-ticket")
-    public ResponseEntity<String> refuseTicket( @RequestBody BookTicket bookTicket){
+    public /*ResponseEntity<String>*/ BookTicket refuseTicket( @RequestBody BookTicket bookTicket){
         log.info("start refuse ticket request");
         log.info("refuse ticket: " + bookTicket);
-        ticketService.refuseTicket(bookTicket);
+        return ticketService.refuseTicket(bookTicket);
 //        log.info("req: " + bookTicket);
 
 //        Map<String,Boolean> response = new HashMap<>();
 //        response.put("refuse",Boolean.TRUE);
 
-        return new ResponseEntity<>("successfully refused",HttpStatus.OK);
+//        return new ResponseEntity<>("successfully refused",HttpStatus.OK);
     }
 
     @LogInfo
     @ApiOperation("query for create ticket")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/ticket")
-    public ResponseEntity<String> createTicket( @RequestBody BookTicket bookTicket){
+    public /*ResponseEntity<String>*/ BookTicket createTicket( @RequestBody BookTicket bookTicket){
         log.info("start add new ticket request");
 
         log.info("book: " + bookTicket);
-        ticketService.addNewTicket(bookTicket);
+        return ticketService.addNewTicket(bookTicket);
 
-        return new ResponseEntity<>("successfully created",HttpStatus.OK);
+/*        return new ResponseEntity<>("successfully created",HttpStatus.OK);*/
     }
 
     @LogInfo

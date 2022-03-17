@@ -67,6 +67,7 @@ public class TicketServiceImpl implements TicketService {
 
         List<BookTicket> tickets = new ArrayList<>();
         ticketRepository.getAllByDoctor(doctor).forEach(t->{
+
             if (t.getDate().equals(date) && t.getUser() != null){
 
                 BookTicket bookTicket = BookTicket.builder()
@@ -87,7 +88,7 @@ public class TicketServiceImpl implements TicketService {
 
     @SneakyThrows
     @Override
-    public /*Answer*/ void bookTicket(BookTicket bookTicket) {
+    public /*Answer*/ /*void*/ BookTicket bookTicket(BookTicket bookTicket) {
 //        Ticket ticket = ticketRepository.getById(id);
 
         LocalDate parseDate = LocalDate.parse(bookTicket.getDate(), dateFormatter);
@@ -112,11 +113,11 @@ public class TicketServiceImpl implements TicketService {
         if (ticket.getUser()!=null){
             throw new RuntimeException("This ticket is already taken");
         }
-        log.info("ticket before update: " + ticket);
+
         ticket.setUser(user);
 
         ticketRepository.save(ticket);
-
+        return bookTicket;
         /*return Answer.builder()
                 .message("successfully booked")
                 .build();*/
@@ -128,6 +129,7 @@ public class TicketServiceImpl implements TicketService {
         User user = userRepository.findByUserName(userName).get();
         List<BookTicket> ticketList = new ArrayList<>();
         ticketRepository.getAllByUser(user).forEach(t->{
+            System.out.println("ticket: " + t);
             BookTicket bookTicket = BookTicket.builder()
                     .date(t.getDate().toString())
                     .time(t.getTime().toString())
@@ -147,7 +149,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @SneakyThrows
-    public void refuseTicket(BookTicket bookTicket) {
+    public /*void*/ BookTicket refuseTicket(BookTicket bookTicket) {
 
 //        User doctor = userRepository.findByUserName(bookTicket.getDoctorName()).get();
 
@@ -174,7 +176,7 @@ public class TicketServiceImpl implements TicketService {
                 break;
             }
         }
-
+        return bookTicket;
         /*log.info("ticket before update: " + ticket);
         ticket.setUser(null);
 
@@ -185,24 +187,25 @@ public class TicketServiceImpl implements TicketService {
 
     @SneakyThrows
     @Override
-    public void /*Answer*/ addNewTicket(BookTicket bookTicket) {
+    public /*void*/ BookTicket /*Answer*/ addNewTicket(BookTicket bookTicket) {
 
         String[] words = bookTicket.getDoctorName().split(" ");
         User doctor = userRepository.getByFirstNameAndLastName(words[0], words[1]);
 
+        LocalDate parseDate = LocalDate.parse(bookTicket.getDate(), dateFormatter);
+        Time parseTime = new Time(timeFormat.parse(bookTicket.getTime() + ":00").getTime() );
 //        User doctor = userRepository.findByUserName(bookTicket.getDoctorName()).get();
         Ticket ticket =null;
         List<Ticket> byDoctor = ticketRepository.getAllByDoctor(doctor);
         for (Ticket t:byDoctor) {
-            if (t.getDate().equals(/*parseDate*/bookTicket.getDate()) && t.getTime().equals(/*parseTime*/bookTicket.getTime())){
+            if (t.getDate().equals(parseDate/*bookTicket.getDate()*/) && t.getTime().equals(parseTime/*bookTicket.getTime()*/)){
                 ticket = t;
                 break;
             }
         }
         if (ticket==null){
-            String time = bookTicket.getTime() + ":00";
-            LocalDate parseDate = LocalDate.parse(bookTicket.getDate(), dateFormatter);
-            Time parseTime = new Time(timeFormat.parse(time /*bookTicket.getTime()*/).getTime());
+//            String time = bookTicket.getTime() + ":00";
+
 
             ticket = Ticket.builder()
                     .date(parseDate)
@@ -211,7 +214,7 @@ public class TicketServiceImpl implements TicketService {
                     .build();
 
             ticketRepository.save(ticket);
-
+            return bookTicket;
             /*return Answer.builder()
                     .message("successfully created")
                     .build();*/

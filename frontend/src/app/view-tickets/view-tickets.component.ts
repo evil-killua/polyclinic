@@ -68,11 +68,12 @@ export class ViewTicketsComponent implements OnInit {
     if(confirm("Are you sure you want to cancel this ticket?")) {
       console.log("refuse ticket: " + ticket);
       
-      this.bookService.refuseTicket(ticket).subscribe((data:string)=>{
+      this.bookService.refuseTicket(ticket).subscribe(data=>{
 //        console.log("data after refuse ticket: " + data);
 //        this.param = data;
-
-        this.success = data;
+        console.log(data);
+        
+        this.success = "successfully refused";
         this.getTicket();
       }, (err: any) => {
 				//console.log(err);

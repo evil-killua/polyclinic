@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserRoleService {
     List<String> getRoleNameByUser(User user);
     List<UserRole> getUserRoleByUser(User user);
-    UserRole findByUserAndAndRole(User user, Role role);
+//    UserRole findByUserAndRole(User user, Role role);
     void removeUserRole(UserRole userRole);
     void addNewUserRole(UserRole userRole);
 }

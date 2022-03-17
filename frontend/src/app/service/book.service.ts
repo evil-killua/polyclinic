@@ -36,22 +36,22 @@ export class BookService{
         return this.httpClient.get<Ticket[]>(`${this.baseURL}/view-ticket/${userName}`);
     }
 
-    bookTicket(ticket:Ticket):Observable<any>{
-        return this.httpClient.put<any>(`${this.baseURL}/ticket`,ticket, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {                                                         
-			return resp;
-		}));
+    bookTicket(ticket:Ticket):Observable<Ticket>{
+        return this.httpClient.put<Ticket>(`${this.baseURL}/ticket`,ticket);
     }
 
-    refuseTicket(ticket:Ticket):Observable<any>{
-        return this.httpClient.put(`${this.baseURL}/refuse-ticket`,ticket, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {                                                         
-			return resp;
-		}));
+    refuseTicket(ticket:Ticket):Observable<Ticket>{
+        return this.httpClient.put<Ticket>(`${this.baseURL}/refuse-ticket`,ticket);
     }
 
-    addTicket(ticket:Ticket):Observable<any>{
+    /*addTicket(ticket:Ticket):Observable<any>{
         return this.httpClient.post<any>(`${this.baseURL}/ticket`,ticket, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {                                                         
 			return resp;
 		}));
+    }*/
+
+    addTicket(ticket:Ticket):Observable<Ticket>{
+        return this.httpClient.post<Ticket>(`${this.baseURL}/ticket`,ticket);
     }
 
     deleteTicket(id:number):Observable<any>{

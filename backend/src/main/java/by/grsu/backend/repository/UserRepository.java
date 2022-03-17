@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /* User */Optional<User> findByUserName(String userName);
     User getByFirstNameAndLastName(String firstName,String lastName);
-    void delete(User user);
+//    void delete(User user);
 //	void deleteById(Long id);
 
 }

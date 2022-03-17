@@ -45,6 +45,7 @@ public class UserAdminController {
     public List<UserRequest> getAllUsers(){
         log.info("get all users request start");
 //        logger.info("get all users request start");
+
         List<User> users = userService.findAll();
         List<UserRequest> requests = new ArrayList<>();
 
@@ -53,6 +54,7 @@ public class UserAdminController {
 
             requests.add(request);
         }
+
         log.info("get all users request finish");
 //        logger.info("get all users request finish");
         return requests;

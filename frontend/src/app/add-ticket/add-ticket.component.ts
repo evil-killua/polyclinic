@@ -91,13 +91,13 @@ success: string = '';
                 console.log(ticket);
             
             
-                this.bookService.addTicket(ticket).subscribe((data:string)=>{
+                this.bookService.addTicket(ticket).subscribe(data=>{
                   console.log("data from add: ");
                   console.log(data)
                   //this.param = data;
                   //this.mes = this.param.message;
                   //this.des = this.param.description;
-                  this.success = data;
+                  this.success = "successfully created";
 
                 }, (err: any) => {
 				          //console.log(err);
